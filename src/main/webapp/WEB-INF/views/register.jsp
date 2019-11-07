@@ -69,7 +69,7 @@
 					</div>
 					<div class="form-group">
 						<label for="InputBirth">생년월일</label> <input type="text"
-							id="datePicker" class="form-control" value="2019-06-27">
+							id="datePicker" class="form-control" placeholder="xxxx-xx-xx">
 					</div>
 					<div class="form-group">
 						<label for="InputEmail">이메일 주소</label> <input type="email"
