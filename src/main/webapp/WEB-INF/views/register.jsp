@@ -80,6 +80,7 @@
 							class="form-control" id="user_mobile"
 							placeholder="휴대폰번호를 입력해 주세요">
 					</div>
+					<input type="hidden" id="user_type" value="nomal">
 					<div class="form-group text-center">
 						<button type="submit" id="join-submit" class="btn btn-primary">
 							회원가입<i class="fa fa-check spaceLeft"></i>
@@ -142,7 +143,7 @@
 					rightArrow : '&raquo;'
 				}, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
 				showWeekDays : true,// 위에 요일 보여주는 옵션 기본값 : true
-				title : "테스트", //캘린더 상단에 보여주는 타이틀
+				title : "생년월일", //캘린더 상단에 보여주는 타이틀
 				todayHighlight : true, //오늘 날짜에 하이라이팅 기능 기본값 :false 
 				toggleActive : true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
 				weekStart : 0,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 

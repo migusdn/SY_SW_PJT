@@ -49,22 +49,24 @@ $(function(){
             $("#user_mobile").focus();
             return false;
         }
-
+        var data = {
+        		user_name:$("#user_name").val(),
+                user_id:$('#user_id').val(),
+                user_email:$('#user_email').val(),
+                user_password:$('#user_password').val(),
+                user_mobile:$("#user_mobile").val(),
+                user_birth:$("#datePicker").val(),
+                user_type:$("#user_type").val()
+        }
         $.ajax({
-            url: 'register.php',
+            url: 'Regis_Act',
             type: 'POST',
-            data: {
-                name:$("#user_name").val(),
-                userID:$('#user_id').val(),
-                email:$('#user_email').val(),
-                password:$('#user_password').val(),
-                mobileNO:$("#user_mobile").val()
-            },
-            dataType: "json",
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 if(response.result == 1){
                     alert('가입 완료');
-                    location.replace('../index.php'); // 화면 갱신
+                    location.replace('/app/'); // 화면 갱신
                 } else if(response.result == 0){
                     alert('이미 가입된 아이디입니다');
                 } else if(response.result == -2){

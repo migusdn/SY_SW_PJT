@@ -1,5 +1,7 @@
 package com.syu.app.Controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,9 +26,13 @@ public class AppController {
 		return "index";
 	}
 	@RequestMapping("/mypage")
-	public String mypage(Model model) {
+	public String mypage(Model model, HttpSession session) {
 		logger.info("mypage");
-		return "mypage";
+		if(session.getAttribute("id") == null)
+			return "login";
+		else
+			return "mypage";
+		
 	}
 
 	@RequestMapping("/register")
@@ -50,5 +56,10 @@ public class AppController {
 	public String follow(Model model) {
 		logger.info("Welcome Index Page");
 		return "follow";
+	}
+	@RequestMapping("/register_type")
+	public String register_type(Model model) {
+		logger.info("Welcome Index Page");
+		return "register_type";
 	}
 }
