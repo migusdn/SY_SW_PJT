@@ -19,6 +19,15 @@
 	<resources location="/resources/assets/icon/" mapping="/assets/icon/**"></resources>
 	<resources location="/resources/assets/sass/" mapping="/assets/sass/**"></resources>
 	<resources location="/resources/assets/fonts/" mapping="/assets/fonts/**"></resources>
+	<resources location="/resources/ckeditor/" mapping="/ckeditor/**"></resources>
+	
+	<resources location="/resources/smartedit/js/service/" mapping="/smartedit/js/service/**"></resources>
+	<resources location="/resources/smartedit/js/lib/" mapping="/smartedit/js/lib/**"></resources>
+	<resources location="/resources/smartedit/js/" mapping="/smartedit/js/**"></resources>
+	<resources location="/resources/smartedit/css/ko_KR/" mapping="/smartedit/css/ko_KR/**"></resources>
+	<resources location="/resources/smartedit/img/" mapping="/smartedit/img/**"></resources>
+	<resources location="/resources/smartedit/" mapping="/smartedit/**"></resources>
+	
 	<resources location="/resources/images/" mapping="/images/**"></resources>
 	<resources mapping="/resources/**" location="/resources/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

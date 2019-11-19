@@ -56,20 +56,22 @@ $(function(){
                 user_password:$('#user_password').val(),
                 user_mobile:$("#user_mobile").val(),
                 user_birth:$("#datePicker").val(),
+                access_token:$("#access_token").val(),
                 user_type:$("#user_type").val()
         }
         $.ajax({
-            url: 'Regis_Act',
+            url: '/app/Regis_Act',
             type: 'POST',
             data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'text/plain; charset=utf-8',
             success: function (response) {
-                if(response.result == 1){
+            	alert(response);
+                if(response == 1){
                     alert('가입 완료');
                     location.replace('/app/'); // 화면 갱신
-                } else if(response.result == 0){
+                } else if(response == 0){
                     alert('이미 가입된 아이디입니다');
-                } else if(response.result == -2){
+                } else if(response == -2){
                     alert('입력된 값이 없습니다');
                 } else {
                     alert('등록중에 에러가 발생했습니다');

@@ -50,22 +50,22 @@
 					</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button" onclick="">네이버</a></li>
+								<li><a href="#" class="button" onclick="location.href='register/naver';">네이버</a></li>
 							</ul>
 						</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button" onclick="">페북</a></li>
+								<li><a href="#" class="button" onclick="location.href='register/facebook';">페북</a></li>
 							</ul>
 						</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button" onclick="">구글</a></li>
+								<li><a href="#" class="button" onclick="location.href='register/google';">구글</a></li>
 							</ul>
 						</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button" onclick="location.href='register';">일반회원</a></li>
+								<li><a href="#" class="button" onclick="location.href='register/normal';">일반회원</a></li>
 							</ul>
 						</div>
 						

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syu.app.Dao.UDao">
+
+	<insert parameterType="com.syu.app.Dto.UserDto" id="Register">
+	INSERT INTO
+		USER (user_id, user_password, user_name, user_birth, user_email, user_mobile, access_token, user_type, regis_date)
+		VALUES(#{user_id}, #{user_password}, #{user_name}, #{user_birth}, #{user_email}, #{user_mobile}, #{access_token}, #{user_type}, #{regis_date}) 
+	</insert>
+	
+	<select parameterType="String" id="Id_Check" resultType="com.syu.app.Dto.UserDto">
+	SELECT user_id FROM user where user_id = #{id}
+	</select>
+	
+	<select parameterType="Map" id="Login" resultType="com.syu.app.Dto.UserDto">
+	SELECT user_id FROM user WHERE user_id = #{user_id} AND user_password = #{user_password}
+	</select> 
+	
+	<select parameterType="String" id="N_Login" resultType="com.syu.app.Dto.UserDto">
+	SELECT user_id FROM user WHERE access_token = #{access_token}
+	</select>
+</mapper>

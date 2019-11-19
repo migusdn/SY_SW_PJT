@@ -16,6 +16,8 @@
 <meta name="keywords" content="" />
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="assets/js/facebook.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 </head>
 <body class="is-preload">
 
@@ -60,18 +62,20 @@
 						</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button" onclick="">로그인</a></li>
+								<li><button id="login">로그인</button></li>
 							</ul>
 						</div>
 						<div class="col-3 col-12-small">
 							<ul class="actions stacked">
-								<li><a href="#" class="button"
-									onclick="location.href='register_type'">회원가입</a></li>
+								<li><button
+									onclick="location.href='register_type'">회원가입</button></li>
 							</ul>
 						</div>
 						<h3 align="center">소셜 로그인</h3>
 						<div class="col-3 col-12-small">
-							<img width="15%" src="assets/icon/Naver.PNG">
+							<div id="naver_id_login">
+							<img src="assets/img/Naver.PNG">
+							</div>
 						</div>
 						<div class="col-3 col-12-small">
 							<fb:login-button scope="public_profile,email"
@@ -104,12 +108,19 @@
 	</footer>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("8tx_pBAlod4OIxq2dlgB", "http://127.0.0.1:8080/app/N_callback");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setDomain("http://127.0.0.1/");
+  	naver_id_login.setState(state);
+  	naver_id_login.init_naver_id_login();
+  </script>
 	<script src="assets/js/browser.min.js"></script>
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/fontawesome.js" crossorigin="anonymous"></script>
+	<script src="assets/js/login.js"></script>
 
 </body>
 </html>

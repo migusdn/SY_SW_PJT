@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <!--
 	Industrious by TEMPLATED
@@ -26,8 +26,18 @@
 		<nav>
 			<a href="#menu">릴레이 시 쓰기</a>
 		</nav>
+		
 	</header>
-
+	<section id="search">
+		<div class="topnav">
+  			<div class="search-container">
+    			<form action="/action_page.php"style="margin:0 0 10px 0;">
+      				<input type="text" placeholder="Search.." name="search" style="width:81.7%; display:inline-block;">
+      				<button type="submit"><i class="fa fa-search"></i></button>
+    			</form>
+ 			</div>
+		</div>
+	</section>
 	<!-- Banner
     <section id="banner">
         <div class="inner">
@@ -40,12 +50,25 @@
 -->
 
 
-	<!-- Testimonials -->
-	<section class="wrapper">
-		<div class="inner">
-			<div class="testimonials"></div>
-		</div>
+		<!-- Testimonials -->
+	<section class="wrapper" id="main" style="padding:0 0 70px 0;">
+			<div style="display: block;">
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
+			</div>
 	</section>
+	
+
+
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="MenuIcon" onclick="location.href='/app/';">

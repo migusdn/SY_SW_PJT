@@ -14,8 +14,8 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<link rel="stylesheet" href="assets/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/app/assets/css/main.css" />
+<link rel="stylesheet" href="/app/assets/css/bootstrap-datepicker.css">
 
 
 </head>
@@ -51,7 +51,7 @@
 				<div class="col-sm-6 col-md-offset-3">
 					<div class="form-group">
 						<label for="inputName">성명</label> <input type="text"
-							class="form-control" id="user_name" placeholder="이름을 입력해 주세요">
+							class="form-control" id="user_name" value="${param.user_name}"placeholder="이름을 입력해 주세요" ${param.edit}>
 					</div>
 					<div class="form-group">
 						<label for="inputName">아이디</label> <input type="text"
@@ -73,14 +73,15 @@
 					</div>
 					<div class="form-group">
 						<label for="InputEmail">이메일 주소</label> <input type="email"
-							class="form-control" id="user_email" placeholder="이메일 주소를 입력해주세요">
+							class="form-control" id="user_email" value="${param.user_email}"placeholder="이메일 주소를 입력해주세요"${param.edit}>
 					</div>
 					<div class="form-group">
 						<label for="inputMobile">휴대폰 번호</label> <input type="tel"
 							class="form-control" id="user_mobile"
 							placeholder="휴대폰번호를 입력해 주세요">
 					</div>
-					<input type="hidden" id="user_type" value="nomal">
+					<input type="hidden" id="user_type" value="${ regis_type}" ${param.edit}>
+					<input type="hidden" id="access_token" value="${param.access_token }" ${param.edit}>
 					<div class="form-group text-center">
 						<button type="submit" id="join-submit" class="btn btn-primary">
 							회원가입<i class="fa fa-check spaceLeft"></i>
@@ -113,15 +114,15 @@
 	</footer>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/fontawesome.js" crossorigin="anonymous"></script>
-	<script src="assets/js/join.js"></script>
-	<script src="assets/js/bootstrap-datepicker.js"></script>
-	<script src="assets/js/bootstrap-datepicker.ko.min.js"></script>
+	<script src="/app/assets/js/jquery.min.js"></script>
+	<script src="/app/assets/js/browser.min.js"></script>
+	<script src="/app/assets/js/breakpoints.min.js"></script>
+	<script src="/app/assets/js/util.js"></script>
+	<script src="/app/assets/js/main.js"></script>
+	<script src="/app/assets/js/fontawesome.js" crossorigin="anonymous"></script>
+	<script src="/app/assets/js/join.js"></script>
+	<script src="/app/assets/js/bootstrap-datepicker.js"></script>
+	<script src="/app/assets/js/bootstrap-datepicker.ko.min.js"></script>
 	<script>
 		$(function() {
 			$('#datePicker').datepicker({
