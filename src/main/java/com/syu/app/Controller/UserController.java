@@ -111,7 +111,7 @@ public class UserController {
 	@RequestMapping("/N_Login")
 	public String N_Login(@RequestBody String paramData, HttpSession session) {
 		String access_token = paramData.trim();
-		System.out.println(access_token);
+		System.out.println("access_token"+access_token);
 		UDao dao = sqlSession.getMapper(UDao.class);
 		UserDto dto = dao.N_Login(access_token);
 		if (dto != null) {

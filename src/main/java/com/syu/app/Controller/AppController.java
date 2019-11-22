@@ -1,22 +1,29 @@
 package com.syu.app.Controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.syu.app.Dao.PDao;
+import com.syu.app.Dto.PostDto;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class AppController {
-	
+	@Autowired
+	private SqlSession sqlSession;
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	
 	/**
@@ -35,6 +42,9 @@ public class AppController {
 			return "login";
 		}
 		else {
+			PDao dao = sqlSession.getMapper(PDao.class);
+			ArrayList<PostDto> PostList = dao.postList((String)session.getAttribute("user_id"));
+			model.addAttribute("PList", PostList);
 			logger.info("mypage");
 			return "mypage";
 		}
