@@ -5,9 +5,45 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syu.app.Dao.PDao">
 
-	<insert parameterType="com.syu.app.Dto.UserDto" id="postWrite">
-	INSERT INTO
-		POST (user_id, post_title, post_content, post_background)
-		VALUES(#{user_id}, #{post_title}, #{post_content}, #{post_background}) 
+	<insert id="postWrite">
+		INSERT INTO
+		POST (user_id, post_title, post_content,
+		post_background)
+		VALUES(#{user_id}, #{post_title}, #{post_content},
+		#{post_background})
 	</insert>
+
+	<select id="postList" resultType="com.syu.app.Dto.PostDto">
+		SELECT *
+		FROM POST
+		WHERE
+		user_id=#{user_id}
+	</select>
+	<select id="postFetch" resultType="com.syu.app.Dto.PostDto" parameterType="int">
+		select R1.* FROM(
+		SELECT *
+		FROM post order by post_date ASC
+		) R1
+		LIMIT 5 OFFSET #{start}
+	</select>
+	<insert id="reply" parameterType="map">
+	INSERT INTO
+	reply
+		(user_id, post_id, reply_content)
+	VALUES
+		(#{user_id},#{post_id},#{reply_content})
+	
+	</insert>
+	<select id="reply_view" resultType="com.syu.app.Dto.ReplyDto">
+		SELECT *
+		FROM reply
+		WHERE
+		post_id=#{post_id}
+	</select>
+	<select id="post_detail" resultType="com.syu.app.Dto.PostDto">
+		SELECT *
+		FROM POST
+		WHERE
+		post_id=#{post_id}
+	</select>
 </mapper>

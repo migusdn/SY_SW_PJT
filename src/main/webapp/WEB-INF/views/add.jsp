@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="assets/js/jquery.min.js"></script>
 <script src="ckeditor/ckeditor.js"></script>
+<script src="assets/js/spectrum.js"></script>
+<link rel="stylesheet" href="assets/css/spectrum.css" />
 <style>
 .filebox label {
 	display: inline-block;
@@ -45,19 +47,20 @@
 </style>
 </head>
 <body class="is-preload">
-<form name="form" id="form"method="post" action="postWrite" encType="multipart">
-	<!-- Header -->
-	<header id="header">
-		<a class="logo" href="index.html">시 쓰기 플랫폼</a>
+	<form name="form" id="form" method="post" action="postWrite"
+		encType="multipart">
+		<!-- Header -->
+		<header id="header">
+			<a class="logo" href="index.html">시 쓰기 플랫폼</a>
 
-		<nav>
-<div class="filebox"> <label for="input_img">배경 이미지 업로드</label> <input type="file" id="input_img" name="post_background"> </div>
+			<nav>
+				<input type="hidden" name="post_background" id="bg_color" value="#000000">
+				<a>배경색 고르기 <input type="text" id="custom"></a>
+			</nav>
 
-		</nav>
+		</header>
 
-	</header>
-
-	<!-- Banner
+		<!-- Banner
     <section id="banner">
         <div class="inner">
             <h1>시 창작 플랫폼</h1>
@@ -68,44 +71,69 @@
     </section>
 -->
 
-	<input type="hidden" name="user_id" value="${sessionScope.user_id }">
-	<input type="text" class="form-control" id="post_title" name="post_title" value=""
-		placeholder="제목을 입력해주세요">
-	<input type="hidden" name="post_content" id="post_content" value="">
-	<textarea class="form-control" id="p_content"></textarea>
-</form>
-	
-	<button id="write"
-		style="width: 49%; display: inline-block;">게시하기</button>
+		<input type="hidden" name="user_id" value="${sessionScope.user_id }">
+		<input type="text" class="form-control" id="post_title"
+			name="post_title" value="" placeholder="제목을 입력해주세요"> <input
+			type="hidden" name="post_content" id="post_content" value="">
+		<textarea class="form-control" id="p_content"></textarea>
+	</form>
+
+	<button id="write" style="width: 49%; display: inline-block;">게시하기</button>
 	<button onclick="button1_click();"
 		style="width: 49%; display: inline-block;">확인용</button>
 	<div>
-		<h2>미리보기</h2> <img id="img" />
+		<h2>미리보기</h2>
+		<img id="img" />
 	</div>
 
 
+	<script>
+		$("#custom").spectrum(
+				{
+					showPalette : true,
+					palette : [
+							[ 'white', 'blanchedalmond' ],
+							[ 'rgb(255, 128, 0);', 'hsv 100 70 50',
+									'lightyellow' ] ]
+				});
+		$(function() {
+			$("#custom").change(function() {
+				//alert($("#custom").val().toString());
+				$("#bg_color").val('#'+$("#custom").spectrum("get").toHex());
+				//alert($("#bg_color").val());
+				
+				var test = $(".cke_wysiwyg_frame").contents().find("body").css('background-color',$("#bg_color").val());
+				//test.attr('style', 'background-color: '+$("#bg_color").val()+';');
+				
+				//test.attr('style')
+				alert(test); 
+			});
+		});
 
+	</script>
 
 
 	<script>
-	$(function(){
-	     $("#write").click(function(){
-	    	var form = $('form')[0];
-	    	document.getElementById("post_content").value =CKEDITOR.instances.p_content.getData();
-	         var formData = new FormData(form);
-	             $.ajax({
-	                url: '/app/postWrite',
-	                processData: false,
-	                contentType: false,
-	                data: formData,
-	                type: 'POST',
-	                success: function(result){
-	                    alert("업로드 성공!!");
-	                }
-	            });
-	         });
-	})
-
+		$(function() {
+			$("#write")
+					.click(
+							function() {
+								var form = $('form')[0];
+								document.getElementById("post_content").value = CKEDITOR.instances.p_content
+										.getData();
+								var formData = new FormData(form);
+								$.ajax({
+									url : '/app/postWrite',
+									processData : false,
+									contentType : false,
+									data : formData,
+									type : 'POST',
+									success : function(result) {
+										location.href = "/app";
+									}
+								});
+							});
+		})
 	</script>
 
 	<script type="text/javascript">
@@ -123,7 +151,7 @@
 
 
 
-<script>
+	<script>
 		var sel_file;
 		$(document).ready(function() {
 			$("#input_img").on("change", handleImgFileSelect);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.syu.app.Dto.PostDto;
+import com.syu.app.Dto.ReplyDto;
 import com.syu.app.Dto.UserDto;
 public class PostDao implements PDao{
 
@@ -18,14 +19,34 @@ public class PostDao implements PDao{
 
 	@Override
 	public void postWrite(PostDto PostDto) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public ArrayList<PostDto> postList(String user_id) {
 		return null;
+	}
+
+	@Override
+	public ArrayList<PostDto> postFetch(int start) {
+		return null;
+	}
+
+	@Override
+	public void reply(Map map) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public PostDto post_detail(String post_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<ReplyDto> reply_view(String post_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

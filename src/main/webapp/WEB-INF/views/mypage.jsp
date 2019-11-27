@@ -16,10 +16,29 @@
 <meta name="keywords" content="" />
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="assets/js/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
+<script src="assets/js/color.js"></script>
 
+<style>
+.box {
+	position: relative;
+	width: 33.3%; /* 원하는 너비 */
+}
+
+.box:before {
+	content: "";
+	display: block;
+	padding-top: 100%; /* 1:1 비율 */
+}
+
+.post {
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+</style>
 </head>
 <body class="is-preload">
 
@@ -28,57 +47,60 @@
 		<a class="logo" href="index.html">시 쓰기 플랫폼</a>
 
 		<nav>
-			<a href="/app/Logout" >로그아웃</a>
+			<a href="/app/Logout">로그아웃</a>
 		</nav>
 	</header>
 
 
-    <section>
-        <div class="data"style="padding:20px 15px 0;">
-            <div>
+	<section>
+		<div class="data" style="padding: 20px 15px 0;">
+			<div>
 				<div class="image">
-					<img src="images/pic01.jpg" width="50"alt="" />
+					<img src="images/pic01.jpg" width="50" alt="" />
 				</div>
-				<p>- <strong>${sessionScope.user_id }</strong> <span>CEO - ABC Inc.</span></p>
+				<p>
+					- <strong>${sessionScope.user_id }</strong> <span>CEO - ABC
+						Inc.</span>
+				</p>
 			</div>
-        </div>
-        
-    </section>
+		</div>
+
+	</section>
 
 
 
 	<!-- Testimonials -->
-	<section class="wrapper" id="main" style="padding:2rem 0 70px 0;">
-			<div style="display: block;">
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-					<img style="margin:0; padding:0;" src="images/img01.JPG" alt="" width="32.6%"/>
-			</div>
+	<section class="wrapper" id="main" style="padding: 2rem 0 70px 0;">
+		<div style="display: block;" id="load">
+			
+			
+		</div>
 	</section>
+	<script>
+	$(document).ready(function(){
+		//alert(${PList});
+	$.each(${PList}, function(index, vo){
+        renderList(false, vo);
+    }) 	
+	});
+	let renderList = function(mode, vo){
+        // 리스트 html을 정의
+        let html = ""
+        	html +='<div class="box" style="background-color:'+vo.post_background+';margin:0; display:inline-block;">';
+        	html +='<div class="post" id="post" postid="'+vo.post_id+'"';
+        	html +='style="margin:0;padding:10px;">';
+        	html +='<span style="background-color:white; border-radius:13px; padding-left:5px; padding-right:5px">';
+        	html +=vo.post_title +'</span></div>';
+
+            $("#load").append(html);
+        
+    }
+	$(document).on('click', '.post', function () {
+	    var post_id = $(this).attr('postid');
+		location.href='post/'+post_id;
+	    // your function here
+	});
+	</script>
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="MenuIcon" onclick="location.href='/app/';">
