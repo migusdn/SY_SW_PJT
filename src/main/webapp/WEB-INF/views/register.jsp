@@ -8,7 +8,7 @@
 -->
 <html>
 <head>
-<title>Industrious by TEMPLATED</title>
+<title>Poem Platform</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -99,16 +99,16 @@
 		<div class="MenuIcon" onclick="location.href='/app/';">
 			<i class="fas fa-home"></i>
 		</div>
-		<div class="MenuIcon" onclick="location.href='search';">
+		<div class="MenuIcon" onclick="location.href='/app/search';">
 			<i class="fas fa-search"></i>
 		</div>
-		<div class="MenuIcon" onclick="location.href='add';">
+		<div class="MenuIcon" onclick="location.href='/app/add';">
 			<i class="far fa-plus-square"></i>
 		</div>
-		<div class="MenuIcon" onclick="location.href='follow';">
+		<div class="MenuIcon" onclick="location.href='/app/follow';">
 			<i class="fas fa-heart"></i>
 		</div>
-		<div class="MenuIcon" onclick="location.href='mypage';">
+		<div class="MenuIcon" onclick="location.href='/app/mypage';">
 			<i class="fas fa-user" style="color: #444444;"></i>
 		</div>
 	</footer>

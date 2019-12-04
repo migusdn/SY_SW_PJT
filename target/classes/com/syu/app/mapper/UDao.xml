@@ -7,7 +7,7 @@
 
 	<insert parameterType="com.syu.app.Dto.UserDto" id="Register">
 	INSERT INTO
-		USER (user_id, user_password, user_name, user_birth, user_email, user_mobile, access_token, user_type, regis_date)
+		user (user_id, user_password, user_name, user_birth, user_email, user_mobile, access_token, user_type, regis_date)
 		VALUES(#{user_id}, #{user_password}, #{user_name}, #{user_birth}, #{user_email}, #{user_mobile}, #{access_token}, #{user_type}, #{regis_date}) 
 	</insert>
 	

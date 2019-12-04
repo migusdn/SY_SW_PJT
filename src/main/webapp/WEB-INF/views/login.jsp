@@ -8,7 +8,7 @@
 -->
 <html>
 <head>
-<title>Industrious by TEMPLATED</title>
+<title>Poem Platform</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -112,9 +112,9 @@
 
 	<!-- Scripts -->
 	<script type="text/javascript">
-  	var naver_id_login = new naver_id_login("8tx_pBAlod4OIxq2dlgB", "http://127.0.0.1:8080/app/N_callback");
+  	var naver_id_login = new naver_id_login("8tx_pBAlod4OIxq2dlgB", "http://migusdn.cafe24.com/app/N_callback");
   	var state = naver_id_login.getUniqState();
-  	naver_id_login.setDomain("http://127.0.0.1/");
+  	naver_id_login.setDomain("http://migusdn.cafe24.com/");
   	naver_id_login.setState(state);
   	naver_id_login.init_naver_id_login();
     //<![CDATA[

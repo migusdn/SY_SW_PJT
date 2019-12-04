@@ -8,6 +8,8 @@ public class PostDto {
 	private String post_date;
 	private String post_edit_date;
 	private String post_background;
+	private String post_like;
+	
 	public String getPost_id() {
 		return post_id;
 	}
@@ -49,5 +51,11 @@ public class PostDto {
 	}
 	public void setPost_background(String post_background) {
 		this.post_background = post_background;
+	}
+	public String getPost_like() {
+		return post_like;
+	}
+	public void setPost_like(String post_like) {
+		this.post_like = post_like;
 	}
 }

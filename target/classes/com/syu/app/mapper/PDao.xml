@@ -7,7 +7,7 @@
 
 	<insert id="postWrite">
 		INSERT INTO
-		POST (user_id, post_title, post_content,
+		post (user_id, post_title, post_content,
 		post_background)
 		VALUES(#{user_id}, #{post_title}, #{post_content},
 		#{post_background})
@@ -15,24 +15,28 @@
 
 	<select id="postList" resultType="com.syu.app.Dto.PostDto">
 		SELECT *
-		FROM POST
-		WHERE
-		user_id=#{user_id}
+		FROM post
+		WHERE user_id = #{user_id}
+		order by post_date DESC
 	</select>
-	<select id="postFetch" resultType="com.syu.app.Dto.PostDto" parameterType="int">
-		select R1.* FROM(
-		SELECT *
-		FROM post order by post_date ASC
-		) R1
-		LIMIT 5 OFFSET #{start}
+	<select id="postFetch" resultType="com.syu.app.Dto.PostDto"
+		parameterType="int">
+		SELECT p.*,
+		(select count(*) from post_like where post_id
+		= p.post_id) as post_like
+		FROM post p
+		order by p.post_date DESC
+		LIMIT 5
+		OFFSET #{start}
 	</select>
 	<insert id="reply" parameterType="map">
-	INSERT INTO
-	reply
-		(user_id, post_id, reply_content)
-	VALUES
+		INSERT INTO
+		reply
+		(user_id,
+		post_id, reply_content)
+		VALUES
 		(#{user_id},#{post_id},#{reply_content})
-	
+
 	</insert>
 	<select id="reply_view" resultType="com.syu.app.Dto.ReplyDto">
 		SELECT *
@@ -42,8 +46,25 @@
 	</select>
 	<select id="post_detail" resultType="com.syu.app.Dto.PostDto">
 		SELECT *
-		FROM POST
+		FROM post
 		WHERE
 		post_id=#{post_id}
+	</select>
+
+	<insert id="like" parameterType="map">
+		INSERT INTO
+		post_like
+		(user_id,
+		post_id, author_id)
+		VALUES
+		(#{user_id},#{post_id}, #{author_id})
+	</insert>
+	<delete id="unlike" parameterType="map">
+		DELETE FROM post_like where
+		user_id=#{user_id} AND post_id=#{post_id}
+	</delete>
+	<select id="likepost" parameterType="String"
+		resultType="com.syu.app.Dto.LikeDto">
+		SELECT * FROM post_like WHERE user_id = #{user_id}
 	</select>
 </mapper>

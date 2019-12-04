@@ -9,7 +9,7 @@
 -->
 <html>
 <head>
-<title>Industrious by TEMPLATED</title>
+<title>Poem Platform</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -71,14 +71,14 @@
 		<section class="wrapper" style="padding-top:0;">
 			<div class="inner">
 				<div class="testimonials" id="load">
-					<c:forEach var="post" items="${post}">
-						<section style="padding-bottom: 0">
+					<%-- <c:forEach var="post" items="${post}">
+						<section style="padding-bottom: 0" postid='<c:out value="${post.post_id }"/>' class="post">
 							<div class="content"
 								style="margin-bottom:0;background-color: <c:out value='${post.post_background} '/>">
 								<blockquote>
 									<c:out value="${post.post_content }" escapeXml="false" />
 								</blockquote>
-								<div class="author">
+								<div class="author" userid='<c:out value="${post.user_id }"></c:out>'>
 									<div class="image">
 										<img src="images/pic01.jpg" alt="" />
 									</div>
@@ -96,18 +96,17 @@
 									postid='<c:out value="${post.post_id }"></c:out>'>확인</button>
 							</div>
 							<div id="like" style="margin-right: 10px;">
-
-								<i class="fas fa-heart"
-									style="font-size: 230%; margin-left: 10px; color: #bbbbbb;"></i>
-								<i>100</i>
+								<i class="fas fa-heart" id="postlike" postid='<c:out value="${post.post_id }"/>' authorid='<c:out value="${post.user_id }"></c:out>'
+									style="font-size: 230%; margin-left: 10px; color: #bbbbbb; cursor: pointer;" like="0"></i>
+								<i class="like_ctn"><c:out value="${post.post_like}"/></i>
 							</div>
 						</div>
-					</c:forEach>
+					</c:forEach> --%>
 				</div>
 			</div>
 		</section>
 	</div>
-	<input type="hidden" id="startNo" value="1">
+	<input type="hidden" id="startNo" value="0">
 	<!-- Footer -->
 	<footer id="footer">
 		<div class="MenuIcon" onclick="location.href='/app/';">
@@ -127,17 +126,17 @@
 		</div>
 	</footer>
 	<script type="text/javascript">
+
 		$(document).on('click', '.reply', function() {
 			var post_id = $(this).attr('postid');
-			var reply_content = $(this).parent().children('input').val().trim();
+			var reply_content = $(this).parent().children('input');
 			var user_id = "${sessionScope.user_id}";
 			if (reply_content.length != 0 && user_id.length != 0) {
 				var data = {
 					'post_id' : post_id,
-					'reply_content' : reply_content,
+					'reply_content' : reply_content.val().trim(),
 					'user_id' : user_id
 				};
-				alert(JSON.stringify(data));
 				$.ajax({
 					url : "reply",
 					type : "POST",
@@ -147,8 +146,8 @@
 					success : function(result) {
 						if(result=='-1')
 							alert('잘못된 접근');
-						else
-							alert('성공');
+						reply_content.val("");
+						
 					}
 				});
 			} else if (user_id.length == '0')
@@ -157,7 +156,63 @@
 				alert('덧글을 입력해주세요');
 			// your function here
 		});
+	
+		$(document).on('click', '.post', function () {
+		    var post_id = $(this).attr('postid');
+			location.href='post/'+post_id;
+		});
+		$(document).on('click', '.author',function () {
+		    var user_id = $(this).attr('userid');
+		    alert('author click');
+		    location.href='user/'+user_id;
+		    e.stopImmediatePropagation();
+		});
+		$(document).on('click', '#postlike',function() {
+			var post_id = $(this).attr('postid');
+			var author_id = $(this).attr('authorid');
+			var user_id = "${sessionScope.user_id}";
+			var like = $(this);
+			var like_ctn = like.parent().children('.like_ctn');
+			var like_ctn_val = parseInt(like.parent().children('.like_ctn').text());
+			if (user_id.length != 0) {
+				var data = {
+					'post_id' : post_id,
+					'like_type' : like.attr('like'),
+					'user_id' : user_id,
+					'author_id': author_id
+				};
+				$.ajax({
+					url : "post_like",
+					type : "POST",
+					data : JSON.stringify(data),
+					contentType : 'application/json; charset=utf-8;',
+					dataType : "json",
+					success : function(result) {
+						if(result=='-1')
+							alert('잘못된 접근');
+						else{
+							if(like.attr('like') == "0"){
+								like.css('color','#e84135');
+								like.attr('like', '1');
+								like_ctn_val = like_ctn_val + 1;
+								like_ctn.text(like_ctn_val);
+							}
+							else{
+								like.css('color','#bbbbbb');
+								like.attr('like', '0');
+								like_ctn_val = like_ctn_val - 1;
+								like_ctn.text(like_ctn_val);
+							}
+						}
+					}
+				});
+			} else if (user_id.length == '0'){
+				alert('로그인이 필요합니다.');
+				location.href='mypage';
+			}
 
+		    event.stopPropagation();
+		});
 		let isEnd = false;
 		$(function() {
 			$(window).scroll(
@@ -184,9 +239,6 @@
 				return;
 			}
 
-			// 방명록 리스트를 가져올 때 시작 번호
-			// renderList 함수에서 html 코드를 보면 <li> 태그에 data-no 속성이 있는 것을 알 수 있다.
-			// ajax에서는 data- 속성의 값을 가져오기 위해 data() 함수를 제공.
 			let startNo = $("#startNo").val();
 			$.ajax({
 				url : "postfetch",
@@ -212,12 +264,12 @@
 		let renderList = function(mode, vo) {
 			// 리스트 html을 정의
 			let html = ""
-			html += '<section style="padding-bottom: 0">';
+			html += '<section style="padding-bottom: 0"postid="'+vo.post_id+'" class="post">';
 			html += '<div class="content" style="background-color:'+vo.post_background+'">';
 			html += '<blockquote>';
 			html += vo.post_content;
 			html += '</blockquote>';
-			html += '<div class="author">';
+			html += '<div class="author" userid="'+vo.user_id+'">';
 			html += '<div class="image">';
 			html += '<img src="images/pic01.jpg" alt="" />'
 			html += '</div><div>'
@@ -234,37 +286,40 @@
 			html += '확인</button>';
 			html += '</div>';
 			html += '<div id="like" style="margin-right: 10px;">';
-			html += '<i class="fas fa-heart"';
-			html += 'style="font-size: 230%; margin-left: 10px; color: #bbbbbb;"></i>';
-			html += '<i>100</i>';
+			html += '<i class="fas fa-heart" id="postlike" authorid="'+vo.user_id+'"';
+			html += 'postid="'+vo.post_id+'"';
+			html += 'style="cursor: pointer; font-size: 230%; margin-left: 10px; ';
+			
+			if(like_check(vo.post_id)){
+				html += 'color: #e84135;"';
+				html+= 'like="1"';
+			}
+			else {
+				html += 'color: #bbbbbb;"';
+				html += 'like="0" ';
+			}
+			
+			
+			html += '></i>';
+			html += '<i class="like_ctn">'+vo.post_like+'</i>';
 			html += '</div>';
 			html += '</div>';
-			
-					
-					
-			
-			
-
-				
-					
-				
-			
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			if (mode) {
 				$("#load").prepend(html);
 			} else {
 				$("#load").append(html);
 			}
 		}
+	var likedata = ${likelist};
+	var user_id = "${sessionScope.user_id}";
+	function like_check(post_id){
+		for(i=0;i<likedata.length; i++){
+			if(likedata[i].post_id == post_id){
+				return true;
+			}
+		}
+		return false;
+	}
 	</script>
 	<!-- Scripts -->
 	<script src="assets/js/browser.min.js"></script>

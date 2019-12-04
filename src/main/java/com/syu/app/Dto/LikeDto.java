@@ -4,6 +4,8 @@ public class LikeDto {
 	private String like_id;
 	private String user_id;
 	private String post_id;
+	private String like_date;
+	private String author_id;
 	public String getLike_id() {
 		return like_id;
 	}
@@ -21,5 +23,17 @@ public class LikeDto {
 	}
 	public void setPost_id(String post_id) {
 		this.post_id = post_id;
+	}
+	public String getLike_date() {
+		return like_date;
+	}
+	public void setLike_date(String like_date) {
+		this.like_date = like_date;
+	}
+	public String getAuthor_id() {
+		return author_id;
+	}
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.syu.app.Dao.PDao;
+import com.syu.app.Dto.LikeDto;
 import com.syu.app.Dto.PostDto;
 
 /**
@@ -40,6 +41,8 @@ public class AppController {
 		PDao dao = sqlSession.getMapper(PDao.class);
 		ArrayList<PostDto> dto = dao.postFetch(0);
 		model.addAttribute("post", dto);
+		ArrayList<LikeDto> LikeList = dao.likepost((String)session.getAttribute("user_id"));
+		model.addAttribute("likelist", new Gson().toJson(LikeList));
 		return "index";
 	}
 	@RequestMapping("/mypage")
@@ -63,6 +66,16 @@ public class AppController {
 		if(regis_type.equals("nomal"))
 			model.addAttribute("regis_type", regis_type);
 		return "register";
+		
+	}
+	@RequestMapping("/user/{user_id}")
+	public String UserPage(Model model, HttpServletRequest request, @PathVariable String user_id) {
+		PDao dao = sqlSession.getMapper(PDao.class);
+		ArrayList<PostDto> PostList = dao.postList(user_id);
+		String json = new Gson().toJson(PostList);
+		model.addAttribute("PList", json);
+		logger.info("mypage");
+		return "mypage";
 		
 	}
 

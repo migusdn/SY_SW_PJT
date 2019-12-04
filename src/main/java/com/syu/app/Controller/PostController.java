@@ -113,10 +113,10 @@ public class PostController {
 	@ResponseBody
 	@RequestMapping(value = "/postfetch", produces = "application/json; charset=utf8")
 	public String mainfetch(@RequestBody String paramData) {
-
+		logger.info("postfetch");
 		int page = Integer.parseInt(paramData.trim());
 		PDao dao = sqlSession.getMapper(PDao.class);
-		ArrayList<PostDto> dto = dao.postFetch(page * 5 + 1);
+		ArrayList<PostDto> dto = dao.postFetch(page * 5);
 		System.out.println(dto.size());
 		JSONObject obj = new JSONObject();
 		try {
@@ -129,6 +129,7 @@ public class PostController {
 				sObject.put("post_content", dto.get(i).getPost_content());
 				sObject.put("post_date", dto.get(i).getPost_date());
 				sObject.put("post_background", dto.get(i).getPost_background());
+				sObject.put("post_like", dto.get(i).getPost_like());
 				jArray.add(sObject);
 			}
 			obj.put("post", jArray);
@@ -156,58 +157,28 @@ public class PostController {
 			return "0";
 		}
 	}
-	/*
-	 * public int home(Model model, HttpServletRequest request, @RequestBody String
-	 * paramData) throws ParseException {
-	 * 
-	 * logger.info("회원가입 컨트롤러 접속"); logger.info("-----------------------");
-	 * logger.info(paramData); // Map Regis_Data = request.getParameterMap();
-	 * JSONObject Regis_Data = (JSONObject) parser.parse(paramData.toString());
-	 * UserDto UserDto = new UserDto();
-	 * UserDto.setUser_name(Regis_Data.get("user_name").toString().trim());
-	 * UserDto.setUser_id(Regis_Data.get("user_id").toString().trim());
-	 * UserDto.setUser_password(Regis_Data.get("user_password").toString().trim());
-	 * UserDto.setUser_email(Regis_Data.get("user_email").toString().trim());
-	 * UserDto.setUser_mobile(Regis_Data.get("user_mobile").toString().trim());
-	 * UserDto.setUser_type(Regis_Data.get("user_type").toString().trim());
-	 * UserDto.setUser_birth(Regis_Data.get("user_birth").toString().trim()); try {
-	 * UserDto.setAccess_token(Regis_Data.get("access_token").toString().trim()); }
-	 * catch (Exception e) { } UDao dao = sqlSession.getMapper(UDao.class);
-	 * dao.Register(UserDto); logger.info("user_id: " +
-	 * Regis_Data.get("user_id").toString().trim()); logger.info("user_password: " +
-	 * Regis_Data.get("user_password").toString().trim());
-	 * 
-	 * return 1; }
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "Login_Act", produces =
-	 * "application/json; charset=utf8") public String LoginAct(HttpServletRequest
-	 * request, @RequestBody String paramData, HttpSession session) throws
-	 * ParseException { logger.info("로그인 컨트롤러 접속"); JSONObject Login_Data =
-	 * (JSONObject) parser.parse(paramData.toString()); Map map = new HashMap();
-	 * map.put("user_id", Login_Data.get("user_id").toString().trim());
-	 * map.put("user_password", Login_Data.get("user_password").toString().trim());
-	 * logger.info("Login info"); logger.info("User_id: " + map.get("user_id"));
-	 * logger.info("User_password: " + map.get("user_password")); UDao dao =
-	 * sqlSession.getMapper(UDao.class); UserDto dto = dao.Login(map); if (dto !=
-	 * null) { session.setAttribute("user_id", dto.getUser_id()); return "1"; } else
-	 * return "0"; }
-	 * 
-	 * @RequestMapping("/N_callback") public String N_callback(Model model) { return
-	 * "N_callback"; }
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/N_Login") public String N_Login(@RequestBody String
-	 * paramData, HttpSession session) { String access_token = paramData.trim();
-	 * System.out.println("access_token"+access_token); UDao dao =
-	 * sqlSession.getMapper(UDao.class); UserDto dto = dao.N_Login(access_token); if
-	 * (dto != null) { session.setAttribute("user_id", dto.getUser_id()); return
-	 * "0"; } else { return "1"; } }
-	 * 
-	 * @RequestMapping("/Logout") public String Logout(HttpSession session) {
-	 * session.invalidate(); return "redirect:/"; }
-	 */
-
+	@ResponseBody
+	@RequestMapping("/post_like")
+	public String post_like(HttpSession session, @RequestBody String paramData) throws ParseException {
+		String user_id = (String) session.getAttribute("user_id");
+		if (user_id == null)
+			return "-1";
+		else {
+			int like_type;
+			JSONParser parser = new JSONParser();
+			JSONObject like_data = (JSONObject) parser.parse(paramData);
+			like_type = Integer.parseInt((String) like_data.get("like_type"));
+			Map map = new HashMap();
+			map.put("user_id", user_id);
+			map.put("post_id", like_data.get("post_id"));
+			map.put("author_id", like_data.get("author_id"));
+			PDao dao = sqlSession.getMapper(PDao.class);
+			if(like_type==0)
+				dao.like(map);
+			else
+				dao.unlike(map);
+			return "0";
+		}
+	}
+	
 }

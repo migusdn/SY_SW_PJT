@@ -9,7 +9,7 @@
 -->
 <html>
 <head>
-<title>Industrious by TEMPLATED</title>
+<title>Poem Platform</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -92,7 +92,7 @@
 							<input type="text" id="reply_content" placeholder="덧글달기"
 								style="margin-left: 10px; margin-right: 10px; width: 70%; margin-bottom: 10px; display: inline-block;">
 							<button id="reply" class="reply"
-								postid='<c:out value="${post.post_id }"></c:out>'>확인</button>
+								postid="<c:out value="${post.post_id }"/>">확인</button>
 						</div>
 						
 						
@@ -100,21 +100,11 @@
 						
 						<div id="like" style="margin-right: 10px;">
 							<i class="fas fa-heart"
-								style="font-size: 230%; margin-left: 10px; color: #bbbbbb;"></i>
-							<i>100</i>
+								style="font-size: 230%; margin-left: 10px; color: #bbbbbb; cursor:pointer;"></i>
+							<i><c:out value="${post.post_like}"/></i>
 						</div>
 						<div class="reply_view" id="load"
 							style="margin-left: 10px; margin-right: 10px;">
-							<div class="col-6 col-12-small">
-
-								<h4>
-									<c:out value="${post.user_id }" />
-								</h4>
-								<ul class="alt">
-									<hr style="margin: 0;">
-									Dolor pulvinar amet etiam.
-								</ul>
-							</div>
 						</div>
 					</div>
 				</div>

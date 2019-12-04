@@ -8,15 +8,15 @@
 -->
 <html>
 <head>
-<title>Industrious by TEMPLATED</title>
+<title>Poem Platform</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/color.js"></script>
+<link rel="stylesheet" href="/app/assets/css/main.css" />
+<script src="/app/assets/js/jquery.min.js"></script>
+<script src="/app/assets/js/color.js"></script>
 
 <style>
 .box {
@@ -56,12 +56,8 @@
 		<div class="data" style="padding: 20px 15px 0;">
 			<div>
 				<div class="image">
-					<img src="images/pic01.jpg" width="50" alt="" />
+					<img src="/app/images/pic01.jpg" width="50" alt="" />
 				</div>
-				<p>
-					- <strong>${sessionScope.user_id }</strong> <span>CEO - ABC
-						Inc.</span>
-				</p>
 			</div>
 		</div>
 
@@ -78,7 +74,6 @@
 	</section>
 	<script>
 	$(document).ready(function(){
-		//alert(${PList});
 	$.each(${PList}, function(index, vo){
         renderList(false, vo);
     }) 	
@@ -123,11 +118,11 @@
 	<!-- Scripts -->
 
 
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/fontawesome.js" crossorigin="anonymous"></script>
+	<script src="/app/assets/js/browser.min.js"></script>
+	<script src="/app/assets/js/breakpoints.min.js"></script>
+	<script src="/app/assets/js/util.js"></script>
+	<script src="/app/assets/js/main.js"></script>
+	<script src="/app/assets/js/fontawesome.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

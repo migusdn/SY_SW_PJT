@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("8tx_pBAlod4OIxq2dlgB", "http://127.0.0.1:8080/app/N_callback");
+  var naver_id_login = new naver_id_login("8tx_pBAlod4OIxq2dlgB", "http://migusdn.cafe24.com/app/N_callback");
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
